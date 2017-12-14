@@ -1,0 +1,28 @@
+# read in description
+gfx read node expected_results/MembraneExtension2DSpace.part0.exnode
+gfx read element expected_results/MembraneExtension2DSpace.part0.exelem
+
+# define deformed geometry and pressure
+gfx define field "deformed_geom" component Dependent.1 Dependent.2
+
+gfx create window 1
+
+# display deformed geometry
+gfx define faces egroup "Region 1"
+gfx modify g_element "Region 1" lines coordinate deformed_geom select_on material default selected_material default_selected
+j
+#gfx modify g_element "Region 1" surfaces coordinate deformed_geom select_on material tissue selected_material default_selected render_shaded
+
+gfx modify g_element "Region 1" node_points coordinate deformed_geom glyph sphere General size "0.1*0.1*0.1" centre 0,0,0 font default select_on material default selected_material default_selected
+
+# display undeformed lines
+gfx modify g_element "Region 1" lines select_on material green selected_material default_selected
+
+gfx create axes length 5 material default
+gfx draw axes
+
+gfx edit scene
+gfx modify window 1 layout 2d ortho_axes z -y eye_spacing 0.25 width 503 height 512;
+gfx modify window 1 view parallel eye_point 1.15 0.9 5.95776 interest_point 1.15 0.9 0 up_vector 4.33681e-19 1 0 view_angle 40 near_clipping_plane 0.297888 far_clipping_plane 12.0911 relative_viewport ndc_placement -1 1 2 2 viewport_coordinates 0 0 1 1;
+gfx modify window 1 set transform_tool current_pane 1 std_view_angle 40 normal_lines antialias 2 depth_of_field 0.0 fast_transparency blend_normal;
+
